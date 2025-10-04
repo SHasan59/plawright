@@ -1,6 +1,6 @@
-const { test } = require("@playwright/test"); //declare to start tests
+const { test, expect } = require("@playwright/test"); //declare to start tests
 
-test.only("Browser Context test", async ({ browser, page }) => {
+test("Browser Context test", async ({ browser, page }) => {
   // function() same as ()=>
   //js is async (doesn't go in order like java)
   // need to put async on function for await
@@ -15,6 +15,13 @@ test.only("Browser Context test", async ({ browser, page }) => {
   );
 });
 
-test("Page Playwright test", async ({ page }) => {
+test.only("Page Playwright test", async ({ page }) => {
+
+
   await page.goto("https://google.com");
+  //get page title then assertion
+
+  console.log(await page.title());
+  await expect(page).toHaveTitle("Google")
+  
 });
