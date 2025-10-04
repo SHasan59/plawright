@@ -5,9 +5,9 @@ const config = {
   //point dir where tests will run
   // 30 sec default timeout
   testDir: "./tests",
-  timeout: 40 * 1000,
+  timeout: 30000,
   expect: {
-    timeout: 40 * 1000,
+    timeout: 5000,
   }, // expect used for assertions validations
 
   reporter: "html",

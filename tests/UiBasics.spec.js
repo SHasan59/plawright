@@ -15,7 +15,7 @@ test("Browser Context test", async ({ browser, page }) => {
   );
 });
 
-test.only("Page Playwright test", async ({ page }) => {
+test("Page Playwright test", async ({ page }) => {
 
 
   await page.goto("https://google.com");
@@ -25,3 +25,29 @@ test.only("Page Playwright test", async ({ page }) => {
   await expect(page).toHaveTitle("Google")
   
 });
+
+test.only("Main test", async ({ page }) => {
+
+
+  await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+  console.log(await page.title());
+  await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
+  
+  //css, xpath 
+    //
+    
+
+   //id tag#name or #name
+    //class tag.class or .class
+    //attribute [attribute='value']
+   //xpath //tag[@attribute='value']
+
+  await page.locator('#username').fill('rahulshettyacademy');
+  await page.locator('[name="password"]').fill('learning');
+  await page.locator('//span[@class="checkmark"]').click;
+  await page.locator('input[name="terms"]').click;
+  await page.locator('input.btn btn-info btn-md').click;
+
+
+  });
+// npx playwright test
