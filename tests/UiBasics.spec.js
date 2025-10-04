@@ -46,8 +46,8 @@ test.only("Main test", async ({ page }) => {
   await page.locator('[name="password"]').fill('learning');
   await page.locator('//span[@class="checkmark"]').click;
   await page.locator('input[name="terms"]').click;
-  await page.locator('input.btn btn-info btn-md').click;
-
+ // await page.locator('input.btn btn-info btn-md').click; (below is easier)
+  await page.locator('#signInBtn').click;
 
   });
 // npx playwright test
