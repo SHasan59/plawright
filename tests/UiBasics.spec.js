@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test"); //declare to start tests
 
-test("Browser Context test", async ({ browser, page }) => {
+test("Browser Context test", async ({ browser }) => {
   // function() same as ()=>
   //js is async (doesn't go in order like java)
   // need to put async on function for await
@@ -23,13 +23,15 @@ test("Page Playwright test", async ({ page }) => {
   await expect(page).toHaveTitle("Google");
 });
 
-test.only("Main test", async ({ page }) => {
+test("Main test", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   console.log(await page.title());
   await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
 
   const userName = page.locator("#username");
   const signIn = page.locator("#signInBtn");
+
+  const cardTitles = page.locator(".card-body a");
 
   //css, xpath
   //
@@ -39,10 +41,8 @@ test.only("Main test", async ({ page }) => {
   //attribute [attribute='value']
   //xpath //tag[@attribute='value']
 
-
   //css from parent to child
   // parenttagname space childtagname
-  
 
   await userName.fill("rahulshetty");
   await page.locator('[name="password"]').fill("learning");
@@ -56,7 +56,30 @@ test.only("Main test", async ({ page }) => {
   await userName.fill(""); //clears text
   await userName.fill("rahulshettyacademy");
   await signIn.click();
-  await page.locator(".card-body a ").nth(0).textContent(); // parent to child css & get first index
-  await page.locator(".card-body a ").first().textContent();
+  //console.log(await cardTitles.nth(1).textContent()); // parent to child css & get first index
+  console.log(await cardTitles.first().textContent());
+
+  const allTitles = await cardTitles.allTextContents(); //alltextcontents method will not wait for page to load
+  console.log(allTitles);
+});
+
+test.only("Practice Login Automation", async ({ page }) => {
+  await page.goto("https://rahulshettyacademy.com/client/auth/login");
+
+  const userName = page.locator("#userEmail");
+  const password = page.locator("#userPassword");
+  const signIn = page.locator("#login");
+
+  await userName.fill("hasan.samith@gmail.com");
+  await password.fill("Test@1234");
+  await signIn.click();
+
+  // await page.waitForLoadState('networkidle'); //wait for all api calls are complete
+
+  const titles = page.locator(".card-body b");
+  await titles.first().waitFor(); //waits for element to load
+  const titleresult = await titles.allTextContents();
+  console.log(titleresult);
 });
 // npx playwright test
+// npx playwright test tests/UiBasics.spec.js
