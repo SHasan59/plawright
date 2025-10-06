@@ -6,8 +6,8 @@ test("Browser Context test", async ({ browser, page }) => {
   // need to put async on function for await
 
   //opening new browser tab
-  //const context = await browser.newContext();
-  // const page = await context.newPage();
+  const context = await browser.newContext();
+  const page = await context.newPage();
   // can use page in function decleration (if you don't have cookies)
 
   await page.goto(
@@ -28,6 +28,9 @@ test.only("Main test", async ({ page }) => {
   console.log(await page.title());
   await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
 
+  const userName = page.locator("#username");
+  const signIn = page.locator("#signInBtn");
+
   //css, xpath
   //
 
@@ -36,13 +39,24 @@ test.only("Main test", async ({ page }) => {
   //attribute [attribute='value']
   //xpath //tag[@attribute='value']
 
-  await page.locator("#username").fill("rahulshetty");
+
+  //css from parent to child
+  // parenttagname space childtagname
+  
+
+  await userName.fill("rahulshetty");
   await page.locator('[name="password"]').fill("learning");
   await page.locator('//span[@class="checkmark"]').click;
   await page.locator('input[name="terms"]').click;
   // await page.locator('input.btn btn-info btn-md').click; (below is easier)
-  await page.locator("#signInBtn").click();
+  await signIn.click();
   console.log(await page.locator("[style*='block']").textContent()); //extracts error message that appears (* used to filter for anything with)
-  await expect (page.locator("[style*='block']")).toContainText('Incorrect'); //assert error message is correct
+  await expect(page.locator("[style*='block']")).toContainText("Incorrect"); //assert error message is correct
+
+  await userName.fill(""); //clears text
+  await userName.fill("rahulshettyacademy");
+  await signIn.click();
+  await page.locator(".card-body a ").nth(0).textContent(); // parent to child css & get first index
+  await page.locator(".card-body a ").first().textContent();
 });
 // npx playwright test
