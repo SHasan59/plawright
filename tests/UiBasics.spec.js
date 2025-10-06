@@ -16,38 +16,33 @@ test("Browser Context test", async ({ browser, page }) => {
 });
 
 test("Page Playwright test", async ({ page }) => {
-
-
   await page.goto("https://google.com");
   //get page title then assertion
 
   console.log(await page.title());
-  await expect(page).toHaveTitle("Google")
-  
+  await expect(page).toHaveTitle("Google");
 });
 
 test.only("Main test", async ({ page }) => {
-
-
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   console.log(await page.title());
   await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
-  
-  //css, xpath 
-    //
-    
 
-   //id tag#name or #name
-    //class tag.class or .class
-    //attribute [attribute='value']
-   //xpath //tag[@attribute='value']
+  //css, xpath
+  //
 
-  await page.locator('#username').fill('rahulshettyacademy');
-  await page.locator('[name="password"]').fill('learning');
+  //id tag#name or #name
+  //class tag.class or .class
+  //attribute [attribute='value']
+  //xpath //tag[@attribute='value']
+
+  await page.locator("#username").fill("rahulshetty");
+  await page.locator('[name="password"]').fill("learning");
   await page.locator('//span[@class="checkmark"]').click;
   await page.locator('input[name="terms"]').click;
- // await page.locator('input.btn btn-info btn-md').click; (below is easier)
-  await page.locator('#signInBtn').click;
-
-  });
+  // await page.locator('input.btn btn-info btn-md').click; (below is easier)
+  await page.locator("#signInBtn").click();
+  console.log(await page.locator("[style*='block']").textContent()); //extracts error message that appears (* used to filter for anything with)
+  await expect (page.locator("[style*='block']")).toContainText('Incorrect'); //assert error message is correct
+});
 // npx playwright test
